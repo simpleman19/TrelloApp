@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vlc-1u-loG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h4E-Qs-yVe">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -52,6 +52,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nameLabel" destination="ISa-QR-6zu" id="766-MX-gNT"/>
+                                    <segue destination="SxK-qh-ibs" kind="show" id="hMS-BD-jlm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -60,17 +61,16 @@
                             <outlet property="delegate" destination="NWe-hs-KEZ" id="o24-0K-MmB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Your Trello List" id="jPW-kb-TG5">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="khw-YL-E1k">
-                            <connections>
-                                <segue destination="RIG-fQ-yww" kind="show" id="kjm-dz-HRc"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Lists" id="jPW-kb-TG5">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="khw-YL-E1k"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="ListTableView" destination="IuC-ts-P5i" id="97o-C0-fIa"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f4X-c7-ulw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1180" y="479"/>
+            <point key="canvasLocation" x="2278" y="341"/>
         </scene>
         <!--List Cards-->
         <scene sceneID="wEb-r9-jCj">
@@ -81,7 +81,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="2uz-cI-4Jd" customClass="CardTableViewCell" customModule="Trello" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CardTableViewCell" rowHeight="90" id="2uz-cI-4Jd" customClass="CardTableViewCell" customModule="Trello" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2uz-cI-4Jd" id="Gdp-dY-rt1">
@@ -89,7 +89,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qy-cb-4Ca">
-                                            <rect key="frame" x="8" y="8" width="513" height="40"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="rbt-QF-VhR"/>
                                             </constraints>
@@ -97,15 +97,8 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUk-KT-PPn">
-                                            <rect key="frame" x="522" y="8" width="70" height="73"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="70" id="veH-nL-05Z"/>
-                                            </constraints>
-                                            <state key="normal" title="Edit"/>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpA-8k-ll8">
-                                            <rect key="frame" x="8" y="49" width="513" height="32"/>
+                                            <rect key="frame" x="8" y="49" width="584" height="32"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -114,16 +107,18 @@
                                     <constraints>
                                         <constraint firstItem="dpA-8k-ll8" firstAttribute="leading" secondItem="Gdp-dY-rt1" secondAttribute="leadingMargin" id="3WD-ks-yhi"/>
                                         <constraint firstItem="dpA-8k-ll8" firstAttribute="top" secondItem="2qy-cb-4Ca" secondAttribute="bottom" constant="1" id="3XU-MY-hxL"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="2qy-cb-4Ca" secondAttribute="trailing" id="7dd-U5-TRK"/>
                                         <constraint firstItem="dpA-8k-ll8" firstAttribute="bottom" secondItem="Gdp-dY-rt1" secondAttribute="bottomMargin" id="9Dv-da-A8Q"/>
-                                        <constraint firstItem="HUk-KT-PPn" firstAttribute="bottom" secondItem="Gdp-dY-rt1" secondAttribute="bottomMargin" id="CwG-n8-ubx"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dpA-8k-ll8" secondAttribute="trailing" id="NQl-bV-k8y"/>
                                         <constraint firstItem="2qy-cb-4Ca" firstAttribute="top" secondItem="Gdp-dY-rt1" secondAttribute="topMargin" id="Ux9-hw-rbl"/>
-                                        <constraint firstItem="HUk-KT-PPn" firstAttribute="leading" secondItem="2qy-cb-4Ca" secondAttribute="trailing" constant="1" id="b1D-1c-qLO"/>
-                                        <constraint firstItem="HUk-KT-PPn" firstAttribute="top" secondItem="Gdp-dY-rt1" secondAttribute="topMargin" id="dVK-HL-SjL"/>
                                         <constraint firstItem="2qy-cb-4Ca" firstAttribute="leading" secondItem="Gdp-dY-rt1" secondAttribute="leadingMargin" id="g7h-fB-Xt6"/>
-                                        <constraint firstItem="HUk-KT-PPn" firstAttribute="trailing" secondItem="Gdp-dY-rt1" secondAttribute="trailingMargin" id="lBX-Qh-idn"/>
-                                        <constraint firstItem="HUk-KT-PPn" firstAttribute="leading" secondItem="dpA-8k-ll8" secondAttribute="trailing" constant="1" id="pFj-PG-2gh"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descLabel" destination="dpA-8k-ll8" id="94G-Zw-dVt"/>
+                                    <outlet property="nameLabel" destination="2qy-cb-4Ca" id="9BE-h6-KMI"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="ShowDetail" id="K0u-WF-sWi"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -134,19 +129,22 @@
                     <navigationItem key="navigationItem" title="List Cards" id="qTO-LW-Dd0">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="HOL-4D-mIJ">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="CM8-uO-kRZ"/>
+                                <segue destination="6jU-jS-J13" kind="show" identifier="AddItem" id="CM8-uO-kRZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cardTableView" destination="6Za-7A-01O" id="PRa-eo-fVl"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgm-kG-9Il" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2925" y="479"/>
+            <point key="canvasLocation" x="3737" y="479"/>
         </scene>
-        <!--View Controller-->
+        <!--New Card-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Trello" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CardViewController" customModule="Trello" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -155,15 +153,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="N48-tL-yZP">
-                                <rect key="frame" x="128" y="129" width="452" height="381"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fLh-tX-uLz">
                                 <rect key="frame" x="128" y="75" width="452" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="O2d-yy-n9x"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -187,44 +181,49 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RxP-dE-6Xj">
-                                <rect key="frame" x="20" y="530" width="560" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="wHY-W6-Cze"/>
-                                </constraints>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="saveCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="G9a-fe-zzC"/>
-                                </connections>
-                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="39z-Is-m7J">
+                                <rect key="frame" x="128" y="124" width="452" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7QQ-8I-xDV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="55" id="2EO-tD-HE4"/>
-                            <constraint firstItem="fLh-tX-uLz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="55" id="7gZ-I8-l7p"/>
-                            <constraint firstItem="RxP-dE-6Xj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="CpL-od-ETF"/>
-                            <constraint firstItem="N48-tL-yZP" firstAttribute="top" secondItem="fLh-tX-uLz" secondAttribute="bottom" constant="20" id="DyB-Kw-scL"/>
-                            <constraint firstItem="RxP-dE-6Xj" firstAttribute="top" secondItem="N48-tL-yZP" secondAttribute="bottom" constant="20" id="EmA-N8-Grb"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RxP-dE-6Xj" secondAttribute="bottom" constant="20" id="H6Q-qQ-FJb"/>
-                            <constraint firstItem="fLh-tX-uLz" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="OQL-9a-rOp"/>
-                            <constraint firstItem="N48-tL-yZP" firstAttribute="leading" secondItem="mfo-w7-UJF" secondAttribute="trailing" constant="8" id="T5C-6N-HXc"/>
-                            <constraint firstItem="mfo-w7-UJF" firstAttribute="top" secondItem="7QQ-8I-xDV" secondAttribute="bottom" constant="20" id="Xdh-Ko-nOA"/>
-                            <constraint firstItem="N48-tL-yZP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="109" id="ZFT-rA-h2r"/>
-                            <constraint firstItem="mfo-w7-UJF" firstAttribute="trailing" secondItem="7QQ-8I-xDV" secondAttribute="trailing" id="a44-7a-f3N"/>
-                            <constraint firstItem="N48-tL-yZP" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ceu-YR-5KG"/>
-                            <constraint firstItem="fLh-tX-uLz" firstAttribute="leading" secondItem="7QQ-8I-xDV" secondAttribute="trailing" constant="8" id="gdD-cp-kS3"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="RxP-dE-6Xj" secondAttribute="trailing" id="okm-I6-vQf"/>
-                            <constraint firstItem="mfo-w7-UJF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="yR8-FA-r1F"/>
+                            <constraint firstItem="39z-Is-m7J" firstAttribute="leading" secondItem="mfo-w7-UJF" secondAttribute="trailing" constant="8" id="10O-4z-1mp"/>
+                            <constraint firstItem="fLh-tX-uLz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="11" id="R9K-D0-kI8"/>
+                            <constraint firstItem="mfo-w7-UJF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="SBx-Qm-XE7"/>
+                            <constraint firstItem="mfo-w7-UJF" firstAttribute="trailing" secondItem="7QQ-8I-xDV" secondAttribute="trailing" id="UTu-Tx-VdH"/>
+                            <constraint firstItem="39z-Is-m7J" firstAttribute="top" secondItem="fLh-tX-uLz" secondAttribute="bottom" constant="15" id="Zm7-fm-p9M"/>
+                            <constraint firstItem="fLh-tX-uLz" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="cEk-1F-xrf"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="39z-Is-m7J" secondAttribute="bottom" constant="446" id="f5p-wb-bll"/>
+                            <constraint firstItem="39z-Is-m7J" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="foR-Pg-48m"/>
+                            <constraint firstItem="fLh-tX-uLz" firstAttribute="leading" secondItem="7QQ-8I-xDV" secondAttribute="trailing" constant="8" id="q0A-fE-Er3"/>
+                            <constraint firstItem="mfo-w7-UJF" firstAttribute="top" secondItem="7QQ-8I-xDV" secondAttribute="bottom" constant="20" id="qCn-mJ-UKJ"/>
+                            <constraint firstItem="7QQ-8I-xDV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="11" id="zlS-Hl-uoU"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="New Card" id="Uf2-X8-nqp">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="uFU-dI-Ahz">
+                            <connections>
+                                <action selector="cancel:" destination="BYZ-38-t0r" id="E1n-Rc-f0e"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="SOh-01-c4n">
+                            <connections>
+                                <segue destination="Do0-hk-2Qr" kind="unwind" unwindAction="unwindToCardList:" id="qDb-5a-0HD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="descriptionTextView" destination="N48-tL-yZP" id="Vt1-ph-SSw"/>
+                        <outlet property="descriptionTextField" destination="39z-Is-m7J" id="kna-t3-6vp"/>
                         <outlet property="nameTextField" destination="fLh-tX-uLz" id="eNT-N9-fzx"/>
+                        <outlet property="saveButton" destination="SOh-01-c4n" id="LHW-E9-oxc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="Do0-hk-2Qr" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3639" y="479"/>
+            <point key="canvasLocation" x="5263" y="479"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="17o-U2-oY7">
@@ -242,7 +241,57 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UIw-DO-xLA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="368" y="479"/>
+            <point key="canvasLocation" x="1320" y="55"/>
+        </scene>
+        <!--Boards-->
+        <scene sceneID="euf-3p-vMe">
+            <objects>
+                <tableViewController id="ger-WD-zM1" customClass="BoardTableViewController" customModule="Trello" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="k7K-4C-Bg8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BoardTableViewCell" rowHeight="90" id="2tU-RG-YPz" customClass="BoardTableViewCell" customModule="Trello" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2tU-RG-YPz" id="c2J-Vd-5lS">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7P-Xz-Scc">
+                                            <rect key="frame" x="8" y="8" width="584" height="73"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="t7P-Xz-Scc" firstAttribute="leading" secondItem="c2J-Vd-5lS" secondAttribute="leadingMargin" id="Avq-j0-NTJ"/>
+                                        <constraint firstItem="t7P-Xz-Scc" firstAttribute="top" secondItem="c2J-Vd-5lS" secondAttribute="topMargin" id="Nhn-uK-IEc"/>
+                                        <constraint firstItem="t7P-Xz-Scc" firstAttribute="bottom" secondItem="c2J-Vd-5lS" secondAttribute="bottomMargin" id="ZeP-fC-abD"/>
+                                        <constraint firstItem="t7P-Xz-Scc" firstAttribute="trailing" secondItem="c2J-Vd-5lS" secondAttribute="trailingMargin" id="pMR-lM-B6a"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="t7P-Xz-Scc" id="0Sp-IO-uFR"/>
+                                    <segue destination="NWe-hs-KEZ" kind="show" id="yvG-cA-sXI"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ger-WD-zM1" id="t7q-vp-xqT"/>
+                            <outlet property="delegate" destination="ger-WD-zM1" id="t6T-cU-f3Q"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Boards" id="4KP-mA-42h"/>
+                    <connections>
+                        <outlet property="boardTableView" destination="k7K-4C-Bg8" id="7JH-6G-LOm"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qus-QQ-Nsz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1189" y="856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Y0F-YX-1Ev">
@@ -260,7 +309,48 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KFv-AL-KLD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2113" y="479"/>
+            <point key="canvasLocation" x="2933" y="955"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ohD-T6-UiE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6jU-jS-J13" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D0P-J1-vdj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Bbc-ze-FzT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s7n-ln-crc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4503" y="891"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="TNg-lF-kwN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="h4E-Qs-yVe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ma6-WR-3Xl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ger-WD-zM1" kind="relationship" relationship="rootViewController" id="keN-LN-Neb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o0o-ei-IYO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="377" y="856"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="hMS-BD-jlm"/>
+        <segue reference="yvG-cA-sXI"/>
+        <segue reference="Bbc-ze-FzT"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -1,5 +1,5 @@
 //
-//  CardTableViewCell.swift
+//  BoardTableViewCell.swift
 //  Trello
 //
 //  Created by Events on 11/13/16.
@@ -8,18 +8,16 @@
 
 import UIKit
 
-class CardTableViewCell: UITableViewCell {
+class BoardTableViewCell: UITableViewCell {
 
-    var id: String?
-    @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         // Initialization code
     }
-    
+
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

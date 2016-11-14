@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		25CD47431DD7CBD0003EE46A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47421DD7CBD0003EE46A /* AppDelegate.swift */; };
-		25CD47451DD7CBD0003EE46A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47441DD7CBD0003EE46A /* ViewController.swift */; };
+		25CD47451DD7CBD0003EE46A /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47441DD7CBD0003EE46A /* CardViewController.swift */; };
 		25CD47481DD7CBD0003EE46A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25CD47461DD7CBD0003EE46A /* Main.storyboard */; };
 		25CD474A1DD7CBD0003EE46A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25CD47491DD7CBD0003EE46A /* Assets.xcassets */; };
 		25CD474D1DD7CBD0003EE46A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25CD474B1DD7CBD0003EE46A /* LaunchScreen.storyboard */; };
@@ -19,6 +19,9 @@
 		25CD47691DD8CB3A003EE46A /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47681DD8CB3A003EE46A /* ListTableViewController.swift */; };
 		25CD476B1DD8D24D003EE46A /* CardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD476A1DD8D24D003EE46A /* CardTableViewController.swift */; };
 		25CD476D1DD8D26C003EE46A /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD476C1DD8D26C003EE46A /* CardTableViewCell.swift */; };
+		25CD47721DD93FF2003EE46A /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47711DD93FF2003EE46A /* SwiftyJSON.swift */; };
+		25CD47741DD973AF003EE46A /* BoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47731DD973AF003EE46A /* BoardTableViewController.swift */; };
+		25CD47761DD973CC003EE46A /* BoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47751DD973CC003EE46A /* BoardTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +37,7 @@
 /* Begin PBXFileReference section */
 		25CD473F1DD7CBD0003EE46A /* Trello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trello.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25CD47421DD7CBD0003EE46A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		25CD47441DD7CBD0003EE46A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		25CD47441DD7CBD0003EE46A /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		25CD47471DD7CBD0003EE46A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		25CD47491DD7CBD0003EE46A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25CD474C1DD7CBD0003EE46A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,6 +51,9 @@
 		25CD47681DD8CB3A003EE46A /* ListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		25CD476A1DD8D24D003EE46A /* CardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTableViewController.swift; sourceTree = "<group>"; };
 		25CD476C1DD8D26C003EE46A /* CardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		25CD47711DD93FF2003EE46A /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		25CD47731DD973AF003EE46A /* BoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTableViewController.swift; sourceTree = "<group>"; };
+		25CD47751DD973CC003EE46A /* BoardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,11 +95,14 @@
 		25CD47411DD7CBD0003EE46A /* Trello */ = {
 			isa = PBXGroup;
 			children = (
+				25CD47711DD93FF2003EE46A /* SwiftyJSON.swift */,
 				25CD47621DD7CE67003EE46A /* Trello.swift */,
 				25CD47641DD8BFCC003EE46A /* Board.swift */,
 				25CD47421DD7CBD0003EE46A /* AppDelegate.swift */,
-				25CD47441DD7CBD0003EE46A /* ViewController.swift */,
+				25CD47441DD7CBD0003EE46A /* CardViewController.swift */,
 				25CD47461DD7CBD0003EE46A /* Main.storyboard */,
+				25CD47731DD973AF003EE46A /* BoardTableViewController.swift */,
+				25CD47751DD973CC003EE46A /* BoardTableViewCell.swift */,
 				25CD476A1DD8D24D003EE46A /* CardTableViewController.swift */,
 				25CD476C1DD8D26C003EE46A /* CardTableViewCell.swift */,
 				25CD47681DD8CB3A003EE46A /* ListTableViewController.swift */,
@@ -215,13 +224,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25CD47761DD973CC003EE46A /* BoardTableViewCell.swift in Sources */,
 				25CD47631DD7CE67003EE46A /* Trello.swift in Sources */,
 				25CD47691DD8CB3A003EE46A /* ListTableViewController.swift in Sources */,
 				25CD476B1DD8D24D003EE46A /* CardTableViewController.swift in Sources */,
-				25CD47451DD7CBD0003EE46A /* ViewController.swift in Sources */,
+				25CD47451DD7CBD0003EE46A /* CardViewController.swift in Sources */,
 				25CD47651DD8BFCC003EE46A /* Board.swift in Sources */,
 				25CD47431DD7CBD0003EE46A /* AppDelegate.swift in Sources */,
+				25CD47721DD93FF2003EE46A /* SwiftyJSON.swift in Sources */,
 				25CD47671DD8C497003EE46A /* ListTableViewCell.swift in Sources */,
+				25CD47741DD973AF003EE46A /* BoardTableViewController.swift in Sources */,
 				25CD476D1DD8D26C003EE46A /* CardTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,6 +422,7 @@
 				25CD475E1DD7CBD0003EE46A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		25CD475F1DD7CBD0003EE46A /* Build configuration list for PBXNativeTarget "TrelloTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +431,7 @@
 				25CD47611DD7CBD0003EE46A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

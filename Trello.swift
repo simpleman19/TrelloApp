@@ -8,76 +8,145 @@
 
 import Foundation
 
-enum Item :String {
-    case Card = "cards"
-}
+typealias ServiceResponse = (JSON, NSError?) -> Void
 
-let apiKey = "fdd1a7304887d0ca6979640385aa3ba3"
-let token = "bdce674f6f32a3249e3b36401c6b2a552f442ef770d37d3f62bb21c1759b9ee9"
-var id_number = ""
+class TrelloAPI {
 
-let testCard = "5820e5c35b7778b1317e7a97"
-let testBoard = "5820e5c35b7778b1317e7a8c"
-let testList = "5820e5c35b7778b1317e7a8d"
-
-
-struct TrelloAPI {
+    static let sharedInstance = TrelloAPI()
     
-    private static let cardURL = "https://api.trello.com/1/cards/" + id_number + "?fields=name,idList,desc&member_fields=fullName&key=" + apiKey + "&token=" + token
-    private static let boardURL = "https://api.trello.com/1/boards/" + id_number + "?lists=open&list_fields=name&fields=name,desc&key=" + apiKey + "&token=" + token
-    private static let listURL = "https://api.trello.com/1/lists/" + id_number + "?fields=name&cards=open&card_fields=name&key=" + apiKey + "&token=" + token
+    let apiKey = "fdd1a7304887d0ca6979640385aa3ba3"
+    let token = "bdce674f6f32a3249e3b36401c6b2a552f442ef770d37d3f62bb21c1759b9ee9"
+    var id_num = ""
+
+    let testCard = "5820e5c35b7778b1317e7a97"
+    let testBoard = "5820e5c35b7778b1317e7a8c"
+    let testList = "5820e5c35b7778b1317e7a8d"
+
+
+    class URls {
+        let apiKey = "fdd1a7304887d0ca6979640385aa3ba3"
+        let token = "bdce674f6f32a3249e3b36401c6b2a552f442ef770d37d3f62bb21c1759b9ee9"
+        var id_num = ""
+        var cardURL: String = ""
+        var boardURL: String = ""
+        var listURL: String = ""
+        var memberURL: String = ""
+        required init(id_num: String) {
+            self.id_num = id_num
+            cardURL = "https://api.trello.com/1/cards/" + id_num + "?fields=name,idList,desc&member_fields=fullName&key=" + apiKey + "&token=" + token
+            boardURL = "https://api.trello.com/1/boards/" + id_num + "?lists=open&list_fields=name&fields=name,desc&key=" + apiKey + "&token=" + token
+            listURL = "https://api.trello.com/1/lists/" + id_num + "?fields=name&cards=open&card_fields=name,desc&key=" + apiKey + "&token=" + token
+            memberURL = "https://api.trello.com/1/members/me?fields=username,fullName,url&boards=all&board_fields=name&organizations=all&organization_fields=displayName&key=" + apiKey + "&token=" + token
+
+        }
+    }
+
     
-}
 // Example Board URL 		https://api.trello.com/1/boards/4eea4ffc91e31d1746000046?lists=open&list_fields=name&fields=name,desc&key=[application_key]&token=[optional_auth_token]
 
-public func trelloBoardURL() -> String {
-    let returnString = ""
-    id_number = testBoard
-    guard let url = NSURL(string: TrelloAPI.boardURL) else {
-        print("Can not creat URL")
-        return returnString
+    func getTrelloMe(id_string: String, onCompletion: (JSON) -> Void) {
+        let urls = URls(id_num: testBoard)
+        let route = urls.memberURL
+        makeHTTPGetRequest(route, onCompletion: { json, err in
+            onCompletion(json as JSON)
+        })
     }
-    let urlRequest = NSURLRequest(URL: url)
-    let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-    let session = NSURLSession(configuration: config)
     
-    let task = session.dataTaskWithRequest(urlRequest) {
-        (data, response, error) in
-        guard error == nil else {
-            print("error calling GET on /todos/1")
-            print(error)
-            return
-        }
-        // make sure we got data
-        guard let responseData = data else {
-            print("Error: did not receive data")
-            return
-        }
-        // parse the result as JSON, since that's what the API provides
-        do {
-            guard let todo = try NSJSONSerialization.JSONObjectWithData(responseData, options: []) as? [String: AnyObject] else {
-                print("error trying to convert data to JSON")
-                return
+    func getTrelloBoardById(id_string: String, onCompletion: (JSON) -> Void) {
+        let urls = URls(id_num: id_string)
+        let route = urls.boardURL
+        makeHTTPGetRequest(route, onCompletion: { json, err in
+            onCompletion(json as JSON)
+        })
+    }
+    
+    func getTrelloListById(id_string: String, onCompletion: (JSON) -> Void) {
+        let urls = URls(id_num: id_string)
+        let route = urls.listURL
+        makeHTTPGetRequest(route, onCompletion: { json, err in
+            onCompletion(json as JSON)
+        })
+    }
+    
+    func getTrelloCardById(id_string: String, onCompletion: (JSON) -> Void) {
+        let urls = URls(id_num: id_string)
+        let route = urls.cardURL
+        makeHTTPGetRequest(route, onCompletion: { json, err in
+            onCompletion(json as JSON)
+        })
+    }
+    
+    
+    private func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
+        let request = NSMutableURLRequest(URL: NSURL(string: path)!)
+        
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            if let jsonData = data {
+                let json:JSON = JSON(data: jsonData)
+                onCompletion(json, error)
+            } else {
+                onCompletion(nil, error)
             }
-            // now we have the todo, let's just print it to prove we can access it
-            print(todo)
+        })
+        task.resume()
+    }
+    
+    private func makeHTTPPostRequest(path: String, body: [String: AnyObject], onCompletion: ServiceResponse) {
+        let request = NSMutableURLRequest(URL: NSURL(string: path)!)
+        
+        // Set the method to POST
+        request.HTTPMethod = "POST"
+        
+        do {
+            // Set the POST body for the request
+            let jsonBody = try NSJSONSerialization.dataWithJSONObject(body, options: .PrettyPrinted)
+            request.HTTPBody = jsonBody
+            let session = NSURLSession.sharedSession()
             
-            // the todo object is a dictionary
-            // so we just access the title using the "title" key
-            // so check for a title and print it if we have one
-            //guard let todoTitle = todo["title"] as? String else {
-            //   print("Could not get todo title from JSON")
-            //    return
-            //}
-            //print("The title is: " + todoTitle)
-        } catch  {
-            print("error trying to convert data to JSON")
-            return
+            let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+                if let jsonData = data {
+                    let json:JSON = JSON(data: jsonData)
+                    onCompletion(json, nil)
+                } else {
+                    onCompletion(nil, error)
+                }
+            })
+            task.resume()
+        } catch {
+            // Create your personal error
+            onCompletion(nil, nil)
         }
     }
     
-    task.resume()
+    func deleteTrelloCardById(id_string: String, onCompletion: (JSON) -> Void) {
+        let urls = URls(id_num: id_string)
+        let route = urls.cardURL
+        makeHTTPDeleteRequest(route, onCompletion: { json, err in
+            onCompletion(json as JSON)
+        })
+    }
     
-    return returnString
-}
+    private func makeHTTPDeleteRequest(path: String, onCompletion: ServiceResponse) {
+        let request = NSMutableURLRequest(URL: NSURL(string: path)!)
+        
+        // Set the method to POST
+        request.HTTPMethod = "DELETE"
+        
+        do {
+            let session = NSURLSession.sharedSession()
+            
+            let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+                if let jsonData = data {
+                    let json:JSON = JSON(data: jsonData)
+                    onCompletion(json, nil)
+                } else {
+                    onCompletion(nil, error)
+                }
+            })
+            task.resume()
+        }
+    }
 
+}

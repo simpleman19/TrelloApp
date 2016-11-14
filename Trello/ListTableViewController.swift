@@ -12,14 +12,13 @@ class ListTableViewController: UITableViewController {
 
     // MARK: Properties
     
-    var boards = [Board]()
-    var lists = [List]()
+    var board: Board! = nil
+    
+    @IBOutlet weak var ListTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Load in sample data
-        loadSampleData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -32,47 +31,25 @@ class ListTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+   
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-
+        
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return lists.count
-    }
-    
-    
-    
-    func loadSampleData() {
-        var board1 = Board.init(name: "board1", description: "testing 1", id: "123wt3w342")
-        var board2 = Board.init(name: "board2", description: "Testing 2", id: "1243aedfqaw435")
-        
-        
-        var list = List.init(name: "List1", id: "1234qwraw345")
-        
-        for i in 1...4 {
-            var card = Card.init(name: ("Card" + String(i)), description: "Testing description", id: "156408680sfd" + String(i), list_id: list.id)
-            list.cards.append(card)
+        if board != nil {
+            return board.lists.count
         }
-        for i in 1...15 {
-            lists += [list]
-        }
-
-        
-        board1.lists.append(list)
-        
-        boards += [board1, board2]
-        
+        return 0
     }
-
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "ListTableViewCell"
         
-        let list = lists[indexPath.row]
+        let list = board.lists[indexPath.row]
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ListTableViewCell
 
@@ -120,14 +97,15 @@ class ListTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+            let cardDetailViewController = segue.destinationViewController as! CardTableViewController
+            // Get the cell that generated this segue.
+            if let selectedListCell = sender as? ListTableViewCell {
+                let indexPath = tableView.indexPathForCell(selectedListCell)!
+                let selectedList = board.lists[indexPath.row]
+                cardDetailViewController.cards += selectedList.cards
+                cardDetailViewController.list = selectedList
+            }
     }
-    */
 
 }

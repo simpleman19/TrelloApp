@@ -10,9 +10,15 @@ import UIKit
 
 class CardTableViewController: UITableViewController {
 
+    var cards = [Card]()
+    var list: List? = nil
+    
+    @IBOutlet var cardTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -25,18 +31,38 @@ class CardTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
 
+    @IBAction func  unwindToCardList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? CardViewController{
+            cards.append(sourceViewController.card!)
+        }
+    }
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        
+        return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return cards.count
     }
-
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellIdentifier = "CardTableViewCell"
+        
+        let card = cards[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! CardTableViewCell
+        
+        cell.id = card.id
+        cell.nameLabel.text = card.name
+        cell.descLabel.text = card.description
+        
+        return cell
+    }
+    
+    
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
@@ -55,17 +81,16 @@ class CardTableViewController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let card = cards[indexPath.row]
+            TrelloAPI.sharedInstance.deleteTrelloCardById(card.id, onCompletion: { (json) in print("deleted") } )
+            cards.removeAtIndex(indexPath.row)
+            list!.cards.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -82,14 +107,24 @@ class CardTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowDetail" {
+            let cardDetailViewController = segue.destinationViewController as! CardViewController
+            // Get the cell that generated this segue.
+            if let selectedCardCell = sender as? CardTableViewCell {
+                let indexPath = tableView.indexPathForCell(selectedCardCell)!
+                let selectedCard = cards[indexPath.row]
+                cardDetailViewController.card = selectedCard
+            }
+        }
+        else if segue.identifier == "AddItem" {
+            print("Adding new meal.")
+        }
     }
-    */
+
 
 }

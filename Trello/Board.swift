@@ -20,6 +20,12 @@ class Board {
         self.description = description
         self.id = id
     }
+    
+    init(json: JSON) {
+        self.name = json["name"].stringValue
+        self.description = json["desc"].stringValue
+        self.id = json["id"].stringValue
+    }
 }
 
 class List {
@@ -30,6 +36,11 @@ class List {
     init(name: String, id: String) {
         self.name = name
         self.id = id
+    }
+    
+    init(json: JSON) {
+        self.name = json["name"].stringValue
+        self.id = json["id"].stringValue
     }
 }
 
@@ -43,6 +54,13 @@ class Card {
         self.name = name
         self.description = description
         self.id = id
+        self.list_id = list_id
+    }
+    
+    init(json: JSON, list_id: String) {
+        self.name = json["name"].stringValue
+        self.description = json["desc"].stringValue
+        self.id = json["id"].stringValue
         self.list_id = list_id
     }
 }
