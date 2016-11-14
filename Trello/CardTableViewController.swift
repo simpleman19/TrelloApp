@@ -18,7 +18,7 @@ class CardTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        print(list!.id)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,8 +33,10 @@ class CardTableViewController: UITableViewController {
 
 
     @IBAction func  unwindToCardList(sender: UIStoryboardSegue) {
+        sleep(1)
         if let sourceViewController = sender.sourceViewController as? CardViewController{
             cards.append(sourceViewController.card!)
+            cardTableView.reloadData()
         }
     }
     
@@ -112,18 +114,18 @@ class CardTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let cardDetailViewController = segue.destinationViewController as! CardViewController
         if segue.identifier == "ShowDetail" {
-            let cardDetailViewController = segue.destinationViewController as! CardViewController
             // Get the cell that generated this segue.
             if let selectedCardCell = sender as? CardTableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedCardCell)!
                 let selectedCard = cards[indexPath.row]
                 cardDetailViewController.card = selectedCard
+                cardDetailViewController.list = list
             }
+            
         }
-        else if segue.identifier == "AddItem" {
-            print("Adding new meal.")
-        }
+        cardDetailViewController.list = list
     }
 
 

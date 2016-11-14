@@ -31,6 +31,8 @@ class TrelloAPI {
         var boardURL: String = ""
         var listURL: String = ""
         var memberURL: String = ""
+        var createURL: String = ""
+        var updateURL: String = ""
         required init(id_num: String) {
             self.id_num = id_num
             cardURL = "https://api.trello.com/1/cards/" + id_num + "?fields=name,idList,desc&member_fields=fullName&key=" + apiKey + "&token=" + token
@@ -38,6 +40,18 @@ class TrelloAPI {
             listURL = "https://api.trello.com/1/lists/" + id_num + "?fields=name&cards=open&card_fields=name,desc&key=" + apiKey + "&token=" + token
             memberURL = "https://api.trello.com/1/members/me?fields=username,fullName,url&boards=all&board_fields=name&organizations=all&organization_fields=displayName&key=" + apiKey + "&token=" + token
 
+        }
+        
+        required init(var name: String, var desc: String, id_list: String) {
+            desc = desc.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+            name = name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+            createURL = "https://api.trello.com/1/cards/?idList=" + id_list + "&name=" + name + "&desc=" + desc + "&key=" + apiKey + "&token=" + token
+        }
+        
+        required init(id_num: String, var name: String, var desc: String, id_list: String) {
+            desc = desc.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+            name = name.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+            updateURL = "https://api.trello.com/1/cards/" + id_num + "?idList=" + id_list + "&name=" + name + "&desc=" + desc + "&key=" + apiKey + "&token=" + token
         }
     }
 
@@ -149,4 +163,65 @@ class TrelloAPI {
         }
     }
 
+    func updateTrelloCardById(id_string: String, name: String, desc: String, id_list: String, onCompletion: (JSON) -> Void) {
+        let urls = URls(id_num: id_string, name: name, desc: desc, id_list: id_list)
+        let route = urls.updateURL
+        makeHTTPPutRequest(route, onCompletion: { json, err in
+            onCompletion(json as JSON)
+        })
+    }
+    
+    private func makeHTTPPutRequest(path: String, onCompletion: ServiceResponse) {
+        let request = NSMutableURLRequest(URL: NSURL(string: path)!)
+        
+        // Set the method to POST
+        request.HTTPMethod = "PUT"
+        
+        do {
+            let session = NSURLSession.sharedSession()
+            
+            let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+                if let jsonData = data {
+                    let json:JSON = JSON(data: jsonData)
+                    onCompletion(json, nil)
+                } else {
+                    onCompletion(nil, error)
+                }
+            })
+            task.resume()
+        }
+    }
+    
+    func createTrelloCard(name: String, desc: String, id_list: String, onCompletion: (JSON) -> Void) {
+        let urls = URls(name: name, desc: desc, id_list: id_list)
+        let escapedString = urls.createURL
+        let route = escapedString
+        makeHTTPPostRequest(route, onCompletion: { json, err in
+            onCompletion(json as JSON)
+        })
+    }
+    
+    private func makeHTTPPostRequest(path: String, onCompletion: ServiceResponse) {
+        print(path)
+        let request = NSMutableURLRequest(URL: NSURL(string: path)!)
+        
+        // Set the method to POST
+        request.HTTPMethod = "POST"
+        
+        do {
+            let session = NSURLSession.sharedSession()
+            print("SessionLoaded")
+            let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+                print("checkingdata")
+                if let jsonData = data {
+                    print("sendbackdata")
+                    let json:JSON = JSON(data: jsonData)
+                    onCompletion(json, nil)
+                } else {
+                    onCompletion(nil, error)
+                }
+            })
+            task.resume()
+        }
+    }
 }

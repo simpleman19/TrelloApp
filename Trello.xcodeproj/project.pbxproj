@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		25CD47431DD7CBD0003EE46A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47421DD7CBD0003EE46A /* AppDelegate.swift */; };
 		25CD47451DD7CBD0003EE46A /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47441DD7CBD0003EE46A /* CardViewController.swift */; };
-		25CD47481DD7CBD0003EE46A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25CD47461DD7CBD0003EE46A /* Main.storyboard */; };
 		25CD474A1DD7CBD0003EE46A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25CD47491DD7CBD0003EE46A /* Assets.xcassets */; };
 		25CD474D1DD7CBD0003EE46A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25CD474B1DD7CBD0003EE46A /* LaunchScreen.storyboard */; };
 		25CD47581DD7CBD0003EE46A /* TrelloTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47571DD7CBD0003EE46A /* TrelloTests.swift */; };
@@ -22,6 +21,7 @@
 		25CD47721DD93FF2003EE46A /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47711DD93FF2003EE46A /* SwiftyJSON.swift */; };
 		25CD47741DD973AF003EE46A /* BoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47731DD973AF003EE46A /* BoardTableViewController.swift */; };
 		25CD47761DD973CC003EE46A /* BoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CD47751DD973CC003EE46A /* BoardTableViewCell.swift */; };
+		25CD47791DDA39D8003EE46A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25CD47771DDA39D8003EE46A /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,6 @@
 		25CD473F1DD7CBD0003EE46A /* Trello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trello.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25CD47421DD7CBD0003EE46A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25CD47441DD7CBD0003EE46A /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
-		25CD47471DD7CBD0003EE46A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		25CD47491DD7CBD0003EE46A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25CD474C1DD7CBD0003EE46A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25CD474E1DD7CBD0003EE46A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,6 +53,7 @@
 		25CD47711DD93FF2003EE46A /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		25CD47731DD973AF003EE46A /* BoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTableViewController.swift; sourceTree = "<group>"; };
 		25CD47751DD973CC003EE46A /* BoardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTableViewCell.swift; sourceTree = "<group>"; };
+		25CD47781DDA39D8003EE46A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +99,8 @@
 				25CD47621DD7CE67003EE46A /* Trello.swift */,
 				25CD47641DD8BFCC003EE46A /* Board.swift */,
 				25CD47421DD7CBD0003EE46A /* AppDelegate.swift */,
+				25CD47771DDA39D8003EE46A /* Main.storyboard */,
 				25CD47441DD7CBD0003EE46A /* CardViewController.swift */,
-				25CD47461DD7CBD0003EE46A /* Main.storyboard */,
 				25CD47731DD973AF003EE46A /* BoardTableViewController.swift */,
 				25CD47751DD973CC003EE46A /* BoardTableViewCell.swift */,
 				25CD476A1DD8D24D003EE46A /* CardTableViewController.swift */,
@@ -204,9 +204,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25CD47791DDA39D8003EE46A /* Main.storyboard in Resources */,
 				25CD474D1DD7CBD0003EE46A /* LaunchScreen.storyboard in Resources */,
 				25CD474A1DD7CBD0003EE46A /* Assets.xcassets in Resources */,
-				25CD47481DD7CBD0003EE46A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,20 +257,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		25CD47461DD7CBD0003EE46A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				25CD47471DD7CBD0003EE46A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		25CD474B1DD7CBD0003EE46A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				25CD474C1DD7CBD0003EE46A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		25CD47771DDA39D8003EE46A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25CD47781DDA39D8003EE46A /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

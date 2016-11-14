@@ -12,6 +12,7 @@ class CardViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
     
     var card: Card? = nil
     var list: List? = nil
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -33,8 +34,12 @@ class CardViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
         // Do any additional setup after loading the view, typically from a nib.
         nameTextField.delegate = self
         descriptionTextField.delegate = self
-        
+        print(list!.id)
         if let card = card {
+            print(card.id)
+            print(card.name)
+            print(card.description)
+            
             nameTextField.text = card.name
             descriptionTextField.text = card.description
         }
@@ -44,7 +49,20 @@ class CardViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
         if saveButton === sender {
             let name = nameTextField.text!
             let description = descriptionTextField.text!
-            card = Card(name: name, description: description, id: "", list_id: list!.id)
+            if card != nil {
+                TrelloAPI.sharedInstance.updateTrelloCardById(card!.id, name: name, desc: description, id_list: list!.id, onCompletion: { (json) in
+                    self.card!.name = json["name"].stringValue
+                    self.card!.description = json["desc"].stringValue
+                })
+            } else {
+                print("CreateCard")
+                TrelloAPI.sharedInstance.createTrelloCard(name, desc: description, id_list: list!.id, onCompletion: { (json) in
+                    print(json)
+                    self.card = Card(json: json, list_id: self.list!.id)
+                    print(self.card!.name)
+                    self.list!.cards.append(self.card!)
+                })
+            }
         }
     }
     
