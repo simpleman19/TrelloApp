@@ -1,4 +1,4 @@
-//
+// Chance Turner
 //  BoardTableViewController.swift
 //  Trello
 //
@@ -26,7 +26,7 @@ class BoardTableViewController: UITableViewController {
     
     func loadInData() {
         TrelloAPI.sharedInstance.getTrelloMe("15645", onCompletion: { (json) in
-            print(json)
+            //print(json)
             let jsonBoards = json["boards"].array
             for b in jsonBoards! {
                 let board = Board.init(json: b)
@@ -47,7 +47,6 @@ class BoardTableViewController: UITableViewController {
                             }
                         })
                         board.lists.append(list)
-                        print(board.lists)
                     }
                     dispatch_async(dispatch_get_main_queue(),{
                         self.boardTableView.reloadData()
@@ -92,7 +91,7 @@ class BoardTableViewController: UITableViewController {
         if let selectedListCell = sender as? BoardTableViewCell {
             let indexPath = tableView.indexPathForCell(selectedListCell)!
             let board = boards[indexPath.row]
-            print(board.lists)
+            //print(board.lists)
             listDetailViewController.board = board
         }
     }

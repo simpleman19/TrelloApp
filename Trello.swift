@@ -1,4 +1,4 @@
-//
+// Chance Turner
 //  Trello.swift
 //  Trello
 //
@@ -202,7 +202,6 @@ class TrelloAPI {
     }
     
     private func makeHTTPPostRequest(path: String, onCompletion: ServiceResponse) {
-        print(path)
         let request = NSMutableURLRequest(URL: NSURL(string: path)!)
         
         // Set the method to POST
@@ -210,11 +209,8 @@ class TrelloAPI {
         
         do {
             let session = NSURLSession.sharedSession()
-            print("SessionLoaded")
             let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-                print("checkingdata")
                 if let jsonData = data {
-                    print("sendbackdata")
                     let json:JSON = JSON(data: jsonData)
                     onCompletion(json, nil)
                 } else {

@@ -1,4 +1,4 @@
-//
+// Chance Turner
 //  CardViewController.swift
 //  Trello
 //
@@ -34,11 +34,11 @@ class CardViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
         // Do any additional setup after loading the view, typically from a nib.
         nameTextField.delegate = self
         descriptionTextField.delegate = self
-        print(list!.id)
+        //print(list!.id)
         if let card = card {
-            print(card.id)
-            print(card.name)
-            print(card.description)
+            //print(card.id)
+            //print(card.name)
+            //print(card.description)
             
             nameTextField.text = card.name
             descriptionTextField.text = card.description
@@ -55,11 +55,11 @@ class CardViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
                     self.card!.description = json["desc"].stringValue
                 })
             } else {
-                print("CreateCard")
+                //print("CreateCard")
                 TrelloAPI.sharedInstance.createTrelloCard(name, desc: description, id_list: list!.id, onCompletion: { (json) in
-                    print(json)
+                    //print(json)
                     self.card = Card(json: json, list_id: self.list!.id)
-                    print(self.card!.name)
+                    //print(self.card!.name)
                     self.list!.cards.append(self.card!)
                 })
             }
